@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo — Martínez Bakery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:    #fdf6ef;
+    --blush:    #f5ddd3;
+    --rose:     #e8a598;
+    --terracota:#c9897a;
+    --mocha:    #8b5e52;
+    --espresso: #4a3728;
+    --caramel:  #d4956a;
+    --mint:     #a8c5b0;
+    --gold:     #c9a96e;
+    --white:    #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--espresso);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #fdf0e8 0%, #f9e4d8 40%, #f5ddd3 100%);
+  }
+
+  /* Blobs decorativos */
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(201,137,122,.22) 0%, transparent 70%);
+    top: -120px; right: -180px;
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(212,149,106,.18) 0%, transparent 70%);
+    bottom: -100px; left: -120px;
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-30px) scale(1.04); }
+  }
+
+  .hero-badge {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    background: rgba(255,255,255,.7);
+    border: 1px solid rgba(201,137,122,.3);
+    padding: 7px 22px;
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+    margin-bottom: 28px;
+    animation: fadeUp .8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    text-align: center;
+    color: var(--espresso);
+    animation: fadeUp 1s .15s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracota);
+  }
+
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--mocha);
+    letter-spacing: .04em;
+    text-align: center;
+    max-width: 480px;
+    animation: fadeUp 1s .3s ease both;
+  }
+
+  .hero-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--terracota), transparent);
+    margin: 32px auto;
+    animation: fadeUp 1s .45s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1s .6s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 36px;
+    background: linear-gradient(135deg, var(--terracota), var(--caramel));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    letter-spacing: .04em;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(201,137,122,.4);
+    transition: transform .25s, box-shadow .25s, filter .25s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(201,137,122,.55);
+    filter: brightness(1.07);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 34px;
+    border: 1.5px solid var(--terracota);
+    color: var(--terracota);
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: .95rem;
+    letter-spacing: .04em;
+    text-decoration: none;
+    background: rgba(255,255,255,.6);
+    backdrop-filter: blur(6px);
+    transition: transform .25s, background .25s, color .25s;
+  }
+  .btn-ghost:hover {
+    background: var(--terracota);
+    color: white;
+    transform: translateY(-3px);
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: .5;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-hint span {
+    font-size: .7rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--mocha);
+  }
+  .scroll-hint svg { width: 22px; fill: none; stroke: var(--mocha); stroke-width: 1.5; }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── DECO STRIP ── */
+  .deco-strip {
+    background: var(--espresso);
+    color: rgba(255,255,255,.6);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .deco-strip-inner {
+    display: inline-block;
+    animation: marquee 22s linear infinite;
+  }
+  .deco-strip-inner span { margin: 0 28px; color: var(--rose); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── CATALOG BODY ── */
+  .catalog {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 80px 24px 120px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 44px;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 600;
+    color: var(--espresso);
+    white-space: nowrap;
+  }
+  .section-header h2 em { font-style: italic; color: var(--terracota); }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201,137,122,.5), transparent);
+  }
+  .section-emoji { font-size: 2rem; }
+
+  /* ── CATEGORY STRIP ── */
+  .cat-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 60px;
+    justify-content: center;
+  }
+  .cat-pill {
+    padding: 8px 22px;
+    border: 1.5px solid rgba(201,137,122,.35);
+    border-radius: 50px;
+    font-size: .82rem;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--mocha);
+    cursor: pointer;
+    background: rgba(255,255,255,.5);
+    backdrop-filter: blur(6px);
+    transition: all .22s;
+    user-select: none;
+  }
+  .cat-pill:hover, .cat-pill.active {
+    background: var(--terracota);
+    border-color: var(--terracota);
+    color: white;
+    box-shadow: 0 4px 18px rgba(201,137,122,.35);
+    transform: translateY(-2px);
+  }
+
+  /* ── GRID ── */
+  .product-section { margin-bottom: 90px; }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+    gap: 28px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(74,55,40,.08);
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+    position: relative;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 50px rgba(74,55,40,.16);
+  }
+
+  .card-img-wrap {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  .card-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .card:hover .card-img-wrap img { transform: scale(1.08); }
+
+  .card-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.5rem;
+    transition: transform .5s ease;
+  }
+  .card:hover .card-img-placeholder { transform: scale(1.12) rotate(3deg); }
+
+  .card-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: rgba(255,255,255,.9);
+    color: var(--terracota);
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+  }
+
+  .card-body { padding: 20px 22px 22px; }
+
+  .card-category {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 6px;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.18rem;
+    font-weight: 600;
+    color: var(--espresso);
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .card-desc {
+    font-size: .83rem;
+    font-weight: 300;
+    color: var(--mocha);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--espresso);
+  }
+  .card-price small {
+    font-family: 'Jost', sans-serif;
+    font-size: .7rem;
+    font-weight: 400;
+    color: var(--mocha);
+    display: block;
+    margin-top: -2px;
+  }
+
+  .card-add {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--terracota), var(--caramel));
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(201,137,122,.4);
+    transition: transform .22s, box-shadow .22s;
+    flex-shrink: 0;
+  }
+  .card-add:hover {
+    transform: scale(1.15) rotate(8deg);
+    box-shadow: 0 8px 22px rgba(201,137,122,.55);
+  }
+
+  /* ── FEATURED CARD (ancho 2 col) ── */
+  .card.featured {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: row;
+  }
+  .card.featured .card-img-wrap { height: auto; min-height: 220px; width: 50%; flex-shrink: 0; }
+  .card.featured .card-body { display: flex; flex-direction: column; justify-content: center; }
+  .card.featured .card-name { font-size: 1.5rem; }
+  @media(max-width:700px) {
+    .card.featured { grid-column: span 1; flex-direction: column; }
+    .card.featured .card-img-wrap { width: 100%; height: 200px; }
+  }
+
+  /* ── GRADIENT BG FOR SECTIONS ── */
+  .section-bg {
+    background: linear-gradient(135deg, rgba(245,221,211,.25) 0%, rgba(253,246,239,0) 100%);
+    border-radius: 30px;
+    padding: 50px 40px;
+    margin-bottom: 90px;
+  }
+  @media(max-width:600px){ .section-bg { padding: 32px 20px; } }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    text-align: center;
+    padding: 80px 24px 100px;
+    background: linear-gradient(160deg, var(--espresso) 0%, #2e1f15 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .bottom-cta::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .bottom-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: white;
+    margin-bottom: 16px;
+  }
+  .bottom-cta h2 em { color: var(--rose); font-style: italic; }
+  .bottom-cta p { color: rgba(255,255,255,.6); font-weight: 300; margin-bottom: 40px; font-size: 1.05rem; }
+  .bottom-cta .btn-primary {
+    box-shadow: 0 10px 40px rgba(201,137,122,.5);
+    font-size: 1.05rem;
+    padding: 16px 44px;
+  }
+
+  /* Animación de entrada */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Colores por categoría */
+  .bg-donas    { background: linear-gradient(135deg, #ffe4d6, #ffd0c0); }
+  .bg-waffles  { background: linear-gradient(135deg, #fff3dc, #ffe8b0); }
+  .bg-helados  { background: linear-gradient(135deg, #d6f0ff, #c0e4ff); }
+  .bg-crepas   { background: linear-gradient(135deg, #f5e6ff, #ead6ff); }
+  .bg-pasteles { background: linear-gradient(135deg, #ffdde4, #ffc8d3); }
+  .bg-cheese   { background: linear-gradient(135deg, #fff8d6, #ffeebb); }
+  .bg-cafe     { background: linear-gradient(135deg, #e8ddd5, #d4c5ba); }
+  .bg-frappe   { background: linear-gradient(135deg, #d6eeee, #bfe0e0); }
+  .bg-galletas { background: linear-gradient(135deg, #ffecd9, #ffd9b8); }
+  .bg-milk     { background: linear-gradient(135deg, #f0d6ff, #ddbfff); }
+  .bg-brownies { background: linear-gradient(135deg, #e0ccbb, #d0b89a); }
+  .bg-cupcakes { background: linear-gradient(135deg, #ffe0ee, #ffc5dd); }
+  .bg-especial { background: linear-gradient(135deg, #d6f5e8, #b8ecd4); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:600px){
+    .catalog { padding: 50px 16px 80px; }
+    .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+    .section-header h2 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <p class="hero-badge">✦ Menú Digital 2025 ✦</p>
+  <h1>Martínez<br><em>Bakery</em></h1>
+  <p class="hero-sub">Repostería artesanal hecha con amor, ingredientes seleccionados y mucha magia.</p>
+  <div class="hero-divider"></div>
+  <div class="hero-btns">
+    <a href="contacto.html" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Encargar Pedido
+    </a>
+    <a href="index.html" class="btn-ghost">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Volver al Inicio
+    </a>
+  </div>
+  <div class="scroll-hint">
+    <span>Ver menú</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ════════════ MARQUEE STRIP ════════════ -->
+<div class="deco-strip">
+  <div class="deco-strip-inner">
+    Donas Artesanales <span>✦</span> Waffles Belgas <span>✦</span> Helados Premium <span>✦</span> Crepas Francesas <span>✦</span> Pasteles Personalizados <span>✦</span> Cheesecakes Cremosos <span>✦</span> Café de Especialidad <span>✦</span> Frappés Artesanales <span>✦</span> Galletas Decoradas <span>✦</span> Milkshakes Gourmet <span>✦</span> Brownies Fudge <span>✦</span> Cupcakes Premium <span>✦</span> Postres Especiales <span>✦</span>
+    Donas Artesanales <span>✦</span> Waffles Belgas <span>✦</span> Helados Premium <span>✦</span> Crepas Francesas <span>✦</span> Pasteles Personalizados <span>✦</span> Cheesecakes Cremosos <span>✦</span> Café de Especialidad <span>✦</span> Frappés Artesanales <span>✦</span> Galletas Decoradas <span>✦</span> Milkshakes Gourmet <span>✦</span> Brownies Fudge <span>✦</span> Cupcakes Premium <span>✦</span> Postres Especiales <span>✦</span>
+  </div>
+</div>
+
+<!-- ════════════ CATALOG ════════════ -->
+<main class="catalog">
+
+  <!-- CATEGORÍAS NAV -->
+  <nav class="cat-nav" aria-label="Categorías">
+    <button class="cat-pill active" onclick="scrollTo('#donas')">🍩 Donas</button>
+    <button class="cat-pill" onclick="scrollTo('#waffles')">🧇 Waffles</button>
+    <button class="cat-pill" onclick="scrollTo('#helados')">🍦 Helados</button>
+    <button class="cat-pill" onclick="scrollTo('#crepas')">🥞 Crepas</button>
+    <button class="cat-pill" onclick="scrollTo('#pasteles')">🎂 Pasteles</button>
+    <button class="cat-pill" onclick="scrollTo('#cheesecakes')">🍰 Cheesecakes</button>
+    <button class="cat-pill" onclick="scrollTo('#cafe')">☕ Café</button>
+    <button class="cat-pill" onclick="scrollTo('#frappes')">🧋 Frappés</button>
+    <button class="cat-pill" onclick="scrollTo('#galletas')">🍪 Galletas</button>
+    <button class="cat-pill" onclick="scrollTo('#milkshakes')">🥤 Milkshakes</button>
+    <button class="cat-pill" onclick="scrollTo('#brownies')">🍫 Brownies</button>
+    <button class="cat-pill" onclick="scrollTo('#cupcakes')">🧁 Cupcakes</button>
+    <button class="cat-pill" onclick="scrollTo('#especiales')">✨ Especiales</button>
+  </nav>
+
+  <!-- ──── DONAS ──── -->
+  <section id="donas" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🍩</span>
+      <h2>Donas <em>Artesanales</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+
+      <div class="card featured">
+        <div class="card-img-wrap bg-donas">
+          <img src="img/rosa_frambuesa.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ Favorita</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Donas</p>
+          <h3 class="card-name">Rosa de Frambuesa con Glaseado Espejo</h3>
+          <p class="card-desc">Masa brioche esponjosa, rellena de mermelada de frambuesa artesanal y cubierta con un irresistible glaseado espejo color fucsia. Decorada con pétalos de rosa comestibles.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,500 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Rosa de Frambuesa')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-donas">
+          <img src="img/terciopelo_rojo.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Donas</p>
+          <h3 class="card-name">Terciopelo Rojo</h3>
+          <p class="card-desc">Masa red velvet con glaseado de queso crema y chispas de chocolate blanco.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,200 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Terciopelo Rojo')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-donas">
+          <img src="img/caramelo_flordesal.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Nuevo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Donas</p>
+          <h3 class="card-name">Caramelo & Flor de Sal</h3>
+          <p class="card-desc">Masa clásica bañada en caramelo salado casero con topping de pretzel y sal rosada del Himalaya.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,300 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Caramelo y Flor de Sal')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-donas">
+          <img src="img/matcha_chocolate.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Donas</p>
+          <h3 class="card-name">Matcha & Chocolate Blanco</h3>
+          <p class="card-desc">Glaseado de matcha japonés premium con hilos de chocolate blanco y polvo de té verde ceremonial.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,400 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Matcha y Chocolate Blanco')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-donas">
+          <img src="img/toffee_nocturno.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Donas</p>
+          <h3 class="card-name">Toffee Nocturno</h3>
+          <p class="card-desc">Base de chocolate oscuro con cobertura de toffee inglés y fragmentos de almendra caramelizada.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,300 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Toffee Nocturno')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── WAFFLES ──── -->
+  <section id="waffles" class="product-section section-bg fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧇</span>
+      <h2>Waffles <em>Belgas</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+
+      <div class="card">
+        <div class="card-img-wrap bg-waffles">
+          <img src="img/sunrise_strawberry.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ Top 1</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Waffles</p>
+          <h3 class="card-name">Sunrise Strawberry</h3>
+          <p class="card-desc">Waffle belga crujiente con fresas frescas maceradas en azúcar, crema batida artesanal y miel de maracuyá.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,800 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Sunrise Strawberry')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-waffles">
+          <img src="img/dulce_de_leche_banana.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Waffles</p>
+          <h3 class="card-name">Dulce de Leche & Banana</h3>
+          <p class="card-desc">Waffle de vainilla con banano caramelizado, dulce de leche artesanal y nueces tostadas.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,200 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Dulce de Leche y Banana')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-waffles">
+          <img src="img/chocolate_lava_dream.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Waffles</p>
+          <h3 class="card-name">Chocolate Lava Dream</h3>
+          <p class="card-desc">Waffle de cacao intenso con coulant de chocolate caliente en el centro, helado de vainilla y granillo de almendras.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,500 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Chocolate Lava Dream')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-waffles">
+          <img src="img/lavanda_miel.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Nuevo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Waffles</p>
+          <h3 class="card-name">Lavanda & Miel</h3>
+          <p class="card-desc">Waffle aromatizado con lavanda provenzal, miel de abeja local, queso mascarpone y arándanos frescos.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,000 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Lavanda y Miel')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── HELADOS ──── -->
+  <section id="helados" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🍦</span>
+      <h2>Helados <em>Artesanales</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-helados">
+          <img src="img/perla_de_coco_pina.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Sin gluten</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Helados</p>
+          <h3 class="card-name">Perla de Coco & Piña</h3>
+          <p class="card-desc">Helado cremoso de coco fresco con trozos de piña asada y ralladura de limón verde.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,800 <small>bola</small></div>
+            <button class="card-add" onclick="encargar('Perla de Coco y Piña')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-helados">
+          <img src="img/brownie_fudge_swirl.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Helados</p>
+          <h3 class="card-name">Brownie Fudge Swirl</h3>
+          <p class="card-desc">Helado de chocolate belga con trozos de brownie casero y remolinos de fudge caliente.</p>
+          <div class="card-footer">
+            <div class="card-price">₡3,200 <small>bola</small></div>
+            <button class="card-add" onclick="encargar('Brownie Fudge Swirl')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-helados">
+          <img src="img/frambuesa_rosas.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Helados</p>
+          <h3 class="card-name">Frambuesa & Rosas</h3>
+          <p class="card-desc">Sorbete de frambuesa silvestre con aroma de agua de rosas y cristales de azúcar violeta.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,900 <small>bola</small></div>
+            <button class="card-add" onclick="encargar('Frambuesa y Rosas')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-helados">
+          <img src="img/cafe_tostado_con_cardamo.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ Favorito</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Helados</p>
+          <h3 class="card-name">Café Tostado con Cardamomo</h3>
+          <p class="card-desc">Helado de café de altura tostado en casa con especias aromáticas de cardamomo y canela de Ceilán.</p>
+          <div class="card-footer">
+            <div class="card-price">₡3,000 <small>bola</small></div>
+            <button class="card-add" onclick="encargar('Café Tostado con Cardamomo')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CREPAS ──── -->
+  <section id="crepas" class="product-section section-bg fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🥞</span>
+      <h2>Crepas <em>Francesas</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-crepas">
+          <img src="img/suzette_al_brandy.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Crepas</p>
+          <h3 class="card-name">Suzette al Brandy</h3>
+          <p class="card-desc">Crepa clásica flambeada con salsa de naranja, mantequilla y brandy. Servida con helado de vainilla.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,500 <small>2 crepas</small></div>
+            <button class="card-add" onclick="encargar('Suzette al Brandy')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-crepas">
+          <img src="img/nutella_frutos_rojos.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Popular</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Crepas</p>
+          <h3 class="card-name">Nutella & Frutos Rojos</h3>
+          <p class="card-desc">Crepa de mantequilla con Nutella generosa, mezcla de frutos rojos frescos y azúcar glass.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,000 <small>2 crepas</small></div>
+            <button class="card-add" onclick="encargar('Nutella y Frutos Rojos')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-crepas">
+          <img src="img/mango_tropical_dream.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Crepas</p>
+          <h3 class="card-name">Mango Tropical Dream</h3>
+          <p class="card-desc">Crepa de coco con crema de mango fresco, chantilly ligero y semillas de maracuyá.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,200 <small>2 crepas</small></div>
+            <button class="card-add" onclick="encargar('Mango Tropical Dream')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-crepas">
+          <img src="img/caramelo_de_manzana.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Crepas</p>
+          <h3 class="card-name">Caramelo de Manzana</h3>
+          <p class="card-desc">Crepa de canela con manzanas salteadas en mantequilla, caramelo casero y almendras laminadas tostadas.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,300 <small>2 crepas</small></div>
+            <button class="card-add" onclick="encargar('Caramelo de Manzana')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── PASTELES ──── -->
+  <section id="pasteles" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🎂</span>
+      <h2>Pasteles <em>de Celebración</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card featured">
+        <div class="card-img-wrap bg-pasteles">
+          <img src="img/naked_cake.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">✦ Estrella</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Pasteles</p>
+          <h3 class="card-name">Naked Cake de Frutos del Bosque</h3>
+          <p class="card-desc">Tres capas de bizcocho de vainilla francesa, crema de mantequilla suiza, compota de moras y fresas del bosque, decorado al estilo "naked" con flores comestibles. Pedido mínimo con 48h de anticipación.</p>
+          <div class="card-footer">
+            <div class="card-price">₡28,000 <small>porción 10 pers.</small></div>
+            <button class="card-add" onclick="encargar('Naked Cake de Frutos del Bosque')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-pasteles">
+          <img src="img/opera_de_cafe.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Pasteles</p>
+          <h3 class="card-name">Ópera de Café & Almendra</h3>
+          <p class="card-desc">Capas de bizcocho de almendra, ganache de café y buttercream de espresso.</p>
+          <div class="card-footer">
+            <div class="card-price">₡22,000 <small>porción 8 pers.</small></div>
+            <button class="card-add" onclick="encargar('Ópera de Café y Almendra')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-pasteles">
+          <img src="img/princess_drip_cake.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Personalizable</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Pasteles</p>
+          <h3 class="card-name">Princess Drip Cake</h3>
+          <p class="card-desc">Pastel drip multicolor con chispas comestibles, macarons de adorno y topping de rock candy. Colores a elección.</p>
+          <div class="card-footer">
+            <div class="card-price">₡32,000 <small>porción 12 pers.</small></div>
+            <button class="card-add" onclick="encargar('Princess Drip Cake')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-pasteles">
+          <img src="img/selva_negra.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Pasteles</p>
+          <h3 class="card-name">Selva Negra Reinterpretada</h3>
+          <p class="card-desc">Bizcocho de chocolate negro, cerezas maceradas en kirsch, chantilly de vainilla y virutas de chocolate 70%.</p>
+          <div class="card-footer">
+            <div class="card-price">₡25,000 <small>porción 10 pers.</small></div>
+            <button class="card-add" onclick="encargar('Selva Negra Reinterpretada')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CHEESECAKES ──── -->
+  <section id="cheesecakes" class="product-section section-bg fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🍰</span>
+      <h2>Cheesecakes <em>Cremosos</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-cheese">
+          <img src="img/newyork_clasico.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ N° 1</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cheesecakes</p>
+          <h3 class="card-name">New York Clásico con Coulis</h3>
+          <p class="card-desc">Base de galleta graham, relleno de queso crema Philadelphia y coulis de fresa fresca. El original.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,500 <small>rebanada</small></div>
+            <button class="card-add" onclick="encargar('New York Clásico')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cheese">
+          <img src="img/oreo_midnight.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cheesecakes</p>
+          <h3 class="card-name">Oreo Midnight</h3>
+          <p class="card-desc">Base y relleno de Oreo, capas de cheesecake oscuro, topping de galletas trituradas y ganache.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,800 <small>rebanada</small></div>
+            <button class="card-add" onclick="encargar('Oreo Midnight')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cheese">
+          <img src="img/maracuya_mango.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Sin horno</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cheesecakes</p>
+          <h3 class="card-name">Maracuyá & Mango</h3>
+          <p class="card-desc">Cheesecake frío de queso mascarpone con curd de maracuyá artesanal y esfera de mango fresco.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,000 <small>rebanada</small></div>
+            <button class="card-add" onclick="encargar('Maracuyá y Mango')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cheese">
+          <img src="img/Burnt_Basque_Caramelizado_El_famoso_202606022007.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cheesecakes</p>
+          <h3 class="card-name">Burnt Basque Caramelizado</h3>
+          <p class="card-desc">El famoso cheesecake vasco horneado hasta quemar su exterior, cremoso en el centro. Con salsa de caramelo flor de sal.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,200 <small>rebanada</small></div>
+            <button class="card-add" onclick="encargar('Burnt Basque')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CAFÉ ──── -->
+  <section id="cafe" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">☕</span>
+      <h2>Café de <em>Especialidad</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-cafe">
+          <img src="img/tonka.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Café</p>
+          <h3 class="card-name">Latte de Vainilla & Tonka</h3>
+          <p class="card-desc">Espresso doble, leche vaporizada texturizada, sirope de vainilla y ralladura de haba tonka.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,800 <small>12 oz</small></div>
+            <button class="card-add" onclick="encargar('Latte de Vainilla y Tonka')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cafe">
+          <img src="img/canela.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Popular</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Café</p>
+          <h3 class="card-name">Cappuccino de Canela</h3>
+          <p class="card-desc">Espresso con leche fría microespumada, canela de Ceilán y una nota de nuez moscada.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,500 <small>8 oz</small></div>
+            <button class="card-add" onclick="encargar('Cappuccino de Canela')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cafe">
+          <img src="img/dalgona.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Café</p>
+          <h3 class="card-name">Café Dalgona Iced</h3>
+          <p class="card-desc">Nube esponjosa de café instantáneo batido sobre leche fría con hielo y sirope de caramelo.</p>
+          <div class="card-footer">
+            <div class="card-price">₡3,000 <small>14 oz</small></div>
+            <button class="card-add" onclick="encargar('Café Dalgona Iced')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cafe">
+          <img src="img/citrico.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Nuevo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Café</p>
+          <h3 class="card-name">Espresso Tónico de Cítricos</h3>
+          <p class="card-desc">Shot de espresso sobre tónica premium con rodajas de naranja sanguina y hielo esférico.</p>
+          <div class="card-footer">
+            <div class="card-price">₡3,200 <small>12 oz</small></div>
+            <button class="card-add" onclick="encargar('Espresso Tónico de Cítricos')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── FRAPPÉS ──── -->
+  <section id="frappes" class="product-section section-bg fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧋</span>
+      <h2>Frappés <em>Artesanales</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-frappe">
+          <img src="img/double.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ Estrella</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Frappés</p>
+          <h3 class="card-name">Double Chocolate Blizzard</h3>
+          <p class="card-desc">Frappé de cacao belga con helado de chocolate, Oreo triturada, chantilly y lluvia de chips de chocolate.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,200 <small>16 oz</small></div>
+            <button class="card-add" onclick="encargar('Double Chocolate Blizzard')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-frappe">
+          <img src="img/caramelo.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Frappés</p>
+          <h3 class="card-name">Caramel Cloud</h3>
+          <p class="card-desc">Frappé de caramelo tostado, leche condensada, helado de dulce de leche y espuma de caramelo salado.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,000 <small>16 oz</small></div>
+            <button class="card-add" onclick="encargar('Caramel Cloud')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-frappe">
+          <img src="img/matcha_coconut.png" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Vegano</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Frappés</p>
+          <h3 class="card-name">Matcha Coconut Vibes</h3>
+          <p class="card-desc">Frappé de matcha ceremonial con leche de coco, lychee y perlas de tapioca. 100% plant-based.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,500 <small>16 oz</small></div>
+            <button class="card-add" onclick="encargar('Matcha Coconut Vibes')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-frappe">
+          <img src="img/Strawberry_Cheesecake_Frappé_Frappé_cremoso_202606020047.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Frappés</p>
+          <h3 class="card-name">Strawberry Cheesecake Frappé</h3>
+          <p class="card-desc">Frappé cremoso con sabor a cheesecake de fresa, crema de queso y topping de galleta graham.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,300 <small>16 oz</small></div>
+            <button class="card-add" onclick="encargar('Strawberry Cheesecake Frappé')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── GALLETAS ──── -->
+  <section id="galletas" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🍪</span>
+      <h2>Galletas <em>Artesanales</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-galletas">
+          <img src="img/NYC_Choco_Chunk_Galleta_estilo_202606020050.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Galletas</p>
+          <h3 class="card-name">NYC Choco Chunk</h3>
+          <p class="card-desc">Galleta estilo New York XXL con chunks de chocolate amargo, mantequilla europea y flor de sal.</p>
+          <div class="card-footer">
+            <div class="card-price">₡1,800 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('NYC Choco Chunk')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-galletas">
+          <img src="img/Snickerdoodle_de_Canela_Galleta_suave_202606020051.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Popular</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Galletas</p>
+          <h3 class="card-name">Snickerdoodle de Canela</h3>
+          <p class="card-desc">Galleta suave rebozada en azúcar de canela, perfectamente crocante por fuera y tierna por dentro.</p>
+          <div class="card-footer">
+            <div class="card-price">₡1,500 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Snickerdoodle de Canela')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-galletas">
+          <img src="img/Limón_&_Lavanda_Galleta_sablé_202606020052.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Galletas</p>
+          <h3 class="card-name">Limón & Lavanda</h3>
+          <p class="card-desc">Galleta sablé de mantequilla con zeste de limón siciliano y flores de lavanda orgánica.</p>
+          <div class="card-footer">
+            <div class="card-price">₡1,600 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Limón y Lavanda')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-galletas">
+          <img src="img/Royal_Icing_Collection_Galletas_decoradas_202606020053.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Decorada</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Galletas</p>
+          <h3 class="card-name">Royal Icing Collection</h3>
+          <p class="card-desc">Galletas decoradas a mano con royal icing, perfectas para regalos y eventos especiales. Diseños variables.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,500 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Royal Icing Collection')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── MILKSHAKES ──── -->
+  <section id="milkshakes" class="product-section section-bg fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🥤</span>
+      <h2>Milkshakes <em>Gourmet</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-milk">
+          <img src="img/Monster_Cotton_Candy_Shake_de_202606020054.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ Viral</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Milkshakes</p>
+          <h3 class="card-name">Monster Cotton Candy</h3>
+          <p class="card-desc">Shake de vainilla cubierto con algodón de azúcar, gummies, macarons y una paleta de chocolate. Para los valientes.</p>
+          <div class="card-footer">
+            <div class="card-price">₡6,500 <small>20 oz</small></div>
+            <button class="card-add" onclick="encargar('Monster Cotton Candy')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-milk">
+          <img src="img/Cookies_&_Cream_Dream_Shake_202606020055.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Milkshakes</p>
+          <h3 class="card-name">Cookies & Cream Dream</h3>
+          <p class="card-desc">Shake de helado de Oreo, con crema chantilly, mitades de galleta y lluvia de chocolate negro.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,500 <small>18 oz</small></div>
+            <button class="card-add" onclick="encargar('Cookies and Cream Dream')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-milk">
+          <img src="img/Strawberry_Sunset_Shake_de_fresa_202606020056.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Milkshakes</p>
+          <h3 class="card-name">Strawberry Sunset</h3>
+          <p class="card-desc">Shake de fresa natural con helado de crema, chantilly rosa y decoración de fresas liofilizadas.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,200 <small>18 oz</small></div>
+            <button class="card-add" onclick="encargar('Strawberry Sunset')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-milk">
+          <img src="img/Pistachio_&_Rose_Gold_Shake_202606020058.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Nuevo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Milkshakes</p>
+          <h3 class="card-name">Pistachio & Rose Gold</h3>
+          <p class="card-desc">Shake de pistacho iraní, crema de rosas, láminas de oro comestible y pétalos de rosa deshidratados.</p>
+          <div class="card-footer">
+            <div class="card-price">₡6,000 <small>18 oz</small></div>
+            <button class="card-add" onclick="encargar('Pistachio Rose Gold')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── BROWNIES ──── -->
+  <section id="brownies" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🍫</span>
+      <h2>Brownies <em>Fudge</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-brownies">
+          <img src="img/Triple_Chocolate_Fudge_Brownie_denso_202606020059.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Clásico</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Brownies</p>
+          <h3 class="card-name">Triple Chocolate Fudge</h3>
+          <p class="card-desc">Brownie denso con chocolate 70%, chips de chocolate con leche, ganache y polvo de cacao de Jamaica.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,000 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Triple Chocolate Fudge')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-brownies">
+          <img src="img/Brownie_de_Nutella_Swirl_Base_202606020059.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Brownies</p>
+          <h3 class="card-name">Brownie de Nutella Swirl</h3>
+          <p class="card-desc">Base fudge con remolinos de Nutella horneada, avellanas tostadas y cobertura crocante de azúcar morena.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,300 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Brownie de Nutella Swirl')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-brownies">
+          <img src="img/S'mores_Brownie_Brownie_con_base_202606021830.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Popular</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Brownies</p>
+          <h3 class="card-name">S'mores Brownie</h3>
+          <p class="card-desc">Brownie con base de galleta graham, marshmallows tostados al soplete y cobertura de chocolate amargo.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,400 <small>porción</small></div>
+            <button class="card-add" onclick="encargar("S'mores Brownie")">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-brownies">
+          <img src="img/Cheesecake_Brownie_Bicolor_Mitad_brownie_202606021831.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Brownies</p>
+          <h3 class="card-name">Cheesecake Brownie Bicolor</h3>
+          <p class="card-desc">Mitad brownie fudge oscuro, mitad cheesecake cremoso, horneados juntos en marmoleado perfecto.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,500 <small>porción</small></div>
+            <button class="card-add" onclick="encargar('Cheesecake Brownie Bicolor')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── CUPCAKES ──── -->
+  <section id="cupcakes" class="product-section section-bg fade-in">
+    <div class="section-header">
+      <span class="section-emoji">🧁</span>
+      <h2>Cupcakes <em>Premium</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card">
+        <div class="card-img-wrap bg-cupcakes">
+          <img src="img/Red_Velvet_Kiss_Base_red_202606021839.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">⭐ Top</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cupcakes</p>
+          <h3 class="card-name">Red Velvet Kiss</h3>
+          <p class="card-desc">Base red velvet húmeda con buttercream de queso crema en pico alto, decorada con perlas de azúcar rojo.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,500 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Red Velvet Kiss')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cupcakes">
+          <img src="img/Limoncello_Amalfi_Base_de_limón_202606021840.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cupcakes</p>
+          <h3 class="card-name">Limoncello Amalfi</h3>
+          <p class="card-desc">Base de limón siciliano, buttercream de limoncello, corteza caramelizada y flores de azúcar amarillas.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,600 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Limoncello Amalfi')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cupcakes">
+          <img src="img/Cupcakes_Black_Forest_Mini_Base_202606021842.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Nuevo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cupcakes</p>
+          <h3 class="card-name">Black Forest Mini</h3>
+          <p class="card-desc">Base de chocolate negro con cereza marrasquino en el interior, crema de kirsch y chispas de chocolate blanco.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,800 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Black Forest Mini')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-cupcakes">
+          <img src="img/Cupcakes_Galaxy_Swirl_Base_de_202606021843.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Cupcakes</p>
+          <h3 class="card-name">Galaxy Swirl</h3>
+          <p class="card-desc">Base de vainilla francesa, frosting multicolor galaxia con purpurina comestible y estrellas de azúcar. Totalmente instagrameable.</p>
+          <div class="card-footer">
+            <div class="card-price">₡3,000 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Galaxy Swirl')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──── ESPECIALES ──── -->
+  <section id="especiales" class="product-section fade-in">
+    <div class="section-header">
+      <span class="section-emoji">✨</span>
+      <h2>Postres <em>Especiales</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid">
+      <div class="card featured">
+        <div class="card-img-wrap bg-especial">
+          <img src="img/Tarta_de_Frutos_del_Bosque_202606021843.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">✦ Exclusivo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Especiales</p>
+          <h3 class="card-name">Tarta de Frutos del Bosque con Espejo de Violeta</h3>
+          <p class="card-desc">Postre de autor: base sablé de almendras, mousse de frambuesa, espejo violeta de glaseado brillante y decoración con pétalos comestibles. Una obra de arte comestible para ocasiones únicas.</p>
+          <div class="card-footer">
+            <div class="card-price">₡8,500 <small>porción individual</small></div>
+            <button class="card-add" onclick="encargar('Tarta Espejo de Violeta')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap bg-especial">
+          <img src="img/Crème_Brûlée_de_Lavanda_Crema_202606021844.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Especiales</p>
+          <h3 class="card-name">Crème Brûlée de Lavanda</h3>
+          <p class="card-desc">Crema de huevo y lavanda provenzal con costra de azúcar quemada al instante. Elegancia pura.</p>
+          <div class="card-footer">
+            <div class="card-price">₡4,500 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Crème Brûlée de Lavanda')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-especial">
+          <img src="img/Mochi_de_Matcha_&_Fresa_202606021845.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Japonés</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Especiales</p>
+          <h3 class="card-name">Mochi de Matcha & Fresa</h3>
+          <p class="card-desc">Mochi artesanal de arroz glutinoso con relleno de helado de matcha o fresa. Textura única y sabor delicado.</p>
+          <div class="card-footer">
+            <div class="card-price">₡2,200 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Mochi Matcha Fresa')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-especial">
+          <img src="img/Coulant_de_Chocolate_Negro_Pastelillo_202606021846.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="card-body">
+          <p class="card-category">Especiales</p>
+          <h3 class="card-name">Coulant de Chocolate Negro</h3>
+          <p class="card-desc">Pastelillo tibio con corazón líquido de chocolate 72%, servido con helado de vainilla de Madagascar.</p>
+          <div class="card-footer">
+            <div class="card-price">₡5,500 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Coulant de Chocolate Negro')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-especial">
+          <img src="img/Croissant_de_Pistacho_&_Rosas_202606021846.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Matutino</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Especiales</p>
+          <h3 class="card-name">Croissant de Pistacho & Rosas</h3>
+          <p class="card-desc">Croissant laminado 36 capas, relleno de crema de pistacho iraní y pétalos de rosa, con glaseado perla.</p>
+          <div class="card-footer">
+            <div class="card-price">₡3,800 <small>unidad</small></div>
+            <button class="card-add" onclick="encargar('Croissant de Pistacho y Rosas')">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img-wrap bg-especial">
+          <img src="img/Especiales_Caja_de_Degustación_Martínez_202606021847.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <span class="card-badge">Regalo</span>
+        </div>
+        <div class="card-body">
+          <p class="card-category">Especiales</p>
+          <h3 class="card-name">Caja de Degustación Martínez</h3>
+          <p class="card-desc">Selección de 6 mini postres de temporada elegidos por nuestra chef. Perfecta como regalo gourmet.</p>
+          <div class="card-footer">
+            <div class="card-price">₡14,000 <small>caja 6 piezas</small></div>
+            <button class="card-add" onclick="encargar('Caja de Degustación')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ════════════ BOTTOM CTA ════════════ -->
+<section class="bottom-cta">
+  <h2>¿Lista para <em>encargar</em>?</h2>
+  <p>Contáctanos para pedidos personalizados, eventos y entregas a domicilio.</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <a href="contacto.html" class="btn-primary" style="font-size:1.05rem;padding:16px 44px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Encargar Pedido
+    </a>
+    <a href="index.html" class="btn-ghost" style="border-color:rgba(245,221,211,.5);color:rgba(245,221,211,.8);">
+      Volver al Inicio
+    </a>
+  </div>
+</section>
+
+<!-- Toast de confirmación -->
+<div id="toast" style="
+  position:fixed;bottom:30px;right:30px;
+  background:linear-gradient(135deg,#4a3728,#8b5e52);
+  color:white;padding:14px 24px;border-radius:14px;
+  font-family:'Jost',sans-serif;font-size:.9rem;font-weight:500;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transform:translateY(100px);opacity:0;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  z-index:9999;
+  max-width:300px;
+">✓ Agregado — <a href='contacto.html' style='color:var(--rose);'>Encargar pedido →</a></div>
+
+<script>
+  // Scroll suave a secciones
+  function scrollTo(id) {
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Toast al agregar
+  function encargar(nombre) {
+    const t = document.getElementById('toast');
+    t.innerHTML = `✓ <strong>${nombre}</strong> agregado — <a href='contacto.html' style='color:#e8a598;'>Encargar pedido →</a>`;
+    t.style.transform = 'translateY(0)';
+    t.style.opacity = '1';
+    setTimeout(() => {
+      t.style.transform = 'translateY(100px)';
+      t.style.opacity = '0';
+    }, 3000);
+  }
+
+  // Intersection Observer para fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // También animar las cards hijas con retraso
+        e.target.querySelectorAll('.card').forEach((card, i) => {
+          card.style.transitionDelay = `${i * 0.08}s`;
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.transition = 'opacity .5s ease, transform .5s ease, box-shadow .3s, transform .3s cubic-bezier(.34,1.56,.64,1)';
+            card.style.opacity = '1';
+            card.style.transform = 'none';
+          }, i * 80 + 100);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
